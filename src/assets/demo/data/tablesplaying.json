@@ -1,0 +1,40 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"mesa": "Mesa 1",
+			"horaInicio": "2024-07-05",
+			"jugadores": 8,
+			"entrada": 2000,
+			"total": 13000,
+			"isPlaying": true
+		},
+		{
+			"id": "2",
+			"mesa": "Mesa 2",
+			"horaInicio": "2024-07-05",
+			"jugadores": 7,
+			"entrada": 3000,
+			"total": 12000,
+			"isPlaying": true
+		},
+		{
+			"id": "3",
+			"mesa": "Mesa 3",
+			"horaInicio": "",
+			"jugadores": 0,
+			"entrada": 0,
+			"total": 0,
+			"isPlaying": false
+		},
+		{
+			"id": "4",
+			"mesa": "Mesa 4",
+			"horaInicio": "",
+			"jugadores": 0,
+			"entrada": 0,
+			"total": 0,
+			"isPlaying": false
+		}
+	]
+}

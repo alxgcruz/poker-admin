@@ -1,0 +1,88 @@
+<div>
+    <div>
+        <p-toast></p-toast>
+
+        <p-table #dt 
+                [value]="tables" 
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [rows]="10"
+                [globalFilterFields]="['nombre']"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} - {last} de {totalRecords} registros"
+                [rowHover]="true"
+                dataKey="id">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                    <h5 class="m-0">Listado de Mesas</h5>
+                    <div class="flex">
+                        <span class=" mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
+                        </span>
+                        <button pButton pRipple icon="pi pi-plus" class="p-button-primary mx-2" (click)="openNew()"></button>
+                        <button pButton pRipple icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                    <th pSortableColumn="isActive">Status <p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-table>
+                <tr (mouseenter)="toggleHover(table.id)">
+                    <td>
+                        <span class="p-column-title">Nombre</span>
+                        {{table.nombre}}
+                    </td>
+                    <td style="width: 10%;" class="text-center">
+                        <span class="p-column-title">Status</span>
+                        <span [class]="'custom-badge status-' + (table.isActive? 'active' : 'inactive')">{{table.isActive ? 'Activo' : 'Inactivo'}}</span>
+                    </td>
+                    <td style="width: 10%;">
+                        @if (isHovered === table.id) {
+                            <div class="flex" >
+                                <p-button pRipple icon="pi pi-pencil" class="mr-2" [text]="true" severity="warning" (click)="editTable(table)"></p-button>
+                                <p-button pRipple icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteTable(table)"></p-button>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog [(visible)]="tableDialog" [style]="{width: '450px'}" header="Table Details" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="content">
+            <!-- <img [src]="'assets/demo/images/product/' + table.image" [alt]="table.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="table.image"> -->
+            <div class="field">
+                <label for="name">Nombre</label>
+                <input type="text" pInputText id="name" [(ngModel)]="table.nombre" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !table.nombre}"/>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !table.nombre">El campo es requerido.</small>
+            </div>
+            <div class="field">
+                <label for="status">Status</label>
+                <p-inputSwitch id="status" [(ngModel)]="player.isActive" />
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple [label]="config.labels.buttons.cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple [label]="config.labels.buttons.save" icon="pi pi-check" class="p-button-text" (click)="saveTable()"></button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteTableDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span *ngIf="table">{{config.labels.messages.delete}}</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteTableDialog = false"></button>
+            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmDelete()"></button>
+        </ng-template>
+    </p-dialog>
+</div>

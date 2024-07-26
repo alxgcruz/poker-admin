@@ -1,0 +1,16 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"nombre": "Sala General",
+			"isActive": true,
+			"fecCreacion": "2024-07-05"
+		},
+		{
+			"id": "2",
+			"nombre": "Sala VIP",
+			"isActive": true,
+			"fecCreacion": "2024-07-05"
+		}
+	]
+}

@@ -1,0 +1,33 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"codigo": "P001",
+			"nombre": "Juan",
+			"apPaterno": "Pérez",
+			"apMaterno": "Gómez",
+			"correo": "juan.perez@example.com",
+			"telefono": "123456789",
+			"fecNacimiento": "1990-05-15",
+			"isActive": true,
+			"fecCreacion": "2024-07-05",
+			"image": "amyelsner.png",
+			"comentarios": "Jugador destacado en el equipo"
+		},
+		{
+			"id": "2",
+			"codigo": "P002",
+			"nombre": "María",
+			"apPaterno": "González",
+			"apMaterno": "Martínez",
+			"correo": "maria.gonzalez@example.com",
+			"telefono": "987654321",
+			"fecNacimiento": "1988-10-20",
+			"isActive": false,
+			"fecCreacion": "2024-07-05",
+			"image": "annafali.png",
+			"comentarios": "Experiencia en múltiples torneos locales"
+		}
+	]
+	
+}

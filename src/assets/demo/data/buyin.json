@@ -1,0 +1,21 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"codigo": "P001",
+			"nombre": "Juan Pérez Gómez",
+			"image": "amyelsner.png",
+			"totalEntradas": 13000,
+			"totalSalidas": 10000
+		},
+		{
+			"id": "2",
+			"codigo": "P002",
+			"nombre": "María González Martínez",
+			"image": "annafali.png",
+			"totalEntradas": 10000,
+			"totalSalidas": 10000
+		}
+	]
+	
+}

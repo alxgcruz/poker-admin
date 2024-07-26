@@ -1,0 +1,48 @@
+{
+	"data": {
+		"movimientos": [
+			{
+				"id": "1",
+				"desc": "Se movió de mesa a jugador",
+				"user": "Usuario 1",
+				"player": "Jugador 1",
+				"fecMov": "02/07/2024",
+				"tipo": "cambio"
+			},
+			{
+				"id": "2",
+				"desc": "Se realizó venta de fichas a jugador",
+				"user": "Usuario 1",
+				"player": "Jugador 1",
+				"fecMov": "02/07/2024",
+				"tipo": "dinero"
+			},
+			{
+				"id": "3",
+				"desc": "Se realizó cobro por parte de jugador",
+				"user": "Usuario 1",
+				"player": "Jugador 1",
+				"fecMov": "02/07/2024",
+				"tipo": "dinero"
+			},
+			{
+				"id": "4",
+				"desc": "Se agregó a nuevo jugador",
+				"user": "Usuario 1",
+				"player": "Jugador 900",
+				"fecMov": "02/07/2024",
+				"tipo": "edicion"
+			},
+			{
+				"id": "5",
+				"desc": "Se eliminó a jugador",
+				"user": "Usuario 1",
+				"player": "Jugador 44",
+				"fecMov": "02/07/2024",
+				"tipo": "edicion"
+			}
+		],
+		"totalMovimientos": 5
+	}
+	
+}

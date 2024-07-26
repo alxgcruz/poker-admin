@@ -1,0 +1,120 @@
+<div>
+    <div>
+        <p-toast></p-toast>
+
+        <p-table #dt 
+            [value]="users"
+            [columns]="cols"
+            responsiveLayout="scroll"
+            [rows]="10"
+            [globalFilterFields]="['nombre','correo','telefono']"
+            [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" 
+            currentPageReportTemplate="Mostrando {first} - {last} de {totalRecords} registros"
+            [rowHover]="true"
+            styleClass="p-datatable-sm"
+            dataKey="id">
+            <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                    <h5 class="m-0">Listado de Usuarios</h5>
+                    <div class="flex">
+                        <span class=" mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
+                        </span>
+                        <button pButton pRipple icon="pi pi-plus" class="p-button-primary mx-2" (click)="openNew()"></button>
+                        <button pButton pRipple icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Imagen</th>
+                    <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
+                    <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                    <th pSortableColumn="correo">Correo <p-sortIcon field="correo"></p-sortIcon></th>
+                    <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
+                    <th pSortableColumn="isActive">Status <p-sortIcon field="isActive"></p-sortIcon></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr (mouseenter)="toggleHover(user.id)">
+                    <td>
+                        <span class="p-column-title">Imagen</span>
+                        <img [src]="'assets/demo/images/avatar/' + user.image" [alt]="user.nombre" width="60" class="shadow-4" />
+                    </td>
+                    <td>
+                        <span class="p-column-title">Código</span>
+                        {{user.codigo || user.id}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Nombre</span>
+                        {{user.nombre}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Correo</span>
+                        {{user.correo}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">Teléfono</span>
+                        {{user.telefono}}
+                    </td>
+                    <td style="width: 10%;" class="text-center">
+                        <span class="p-column-title">Status</span>
+                        <span [class]="'custom-badge status-' + (user.isActive ? 'active' : 'inactive')">{{user.isActive ? 'Activo' : 'Inactivo'}}</span>
+                    </td>
+                    <td style="width: 10%;">
+                        @if (isHovered === user.id) {
+                            <div class="flex" >
+                                <p-button  pRipple icon="pi pi-pencil" class="mr-2" [text]="true" severity="warning" (click)="editUser(user)"></p-button>
+                                <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteUser(user)"></p-button>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog [(visible)]="userDialog" [style]="{width: '450px'}" header="Detalles" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="content">
+            <img [src]="'assets/demo/images/avatar/' + user.image" [alt]="user.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="user.image">
+            <div class="field">
+                <label for="nombre">Nombre</label>
+                <input type="text" pInputText id="nombre" [(ngModel)]="user.nombre" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.nombre}"/>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.nombre">El campo es obligatorio.</small>
+            </div>
+            <div class="field">
+                <label for="mail">Correo</label>
+                <input type="mail" pInputText id="mail" [(ngModel)]="user.correo" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.correo}"/>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.correo">El campo es obligatorio.</small>
+            </div>
+            <div class="field">
+                <label for="telefono">Teléfono</label>
+                <input type="text" pInputText id="telefono" [(ngModel)]="user.telefono" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.telefono}"/>
+                <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.telefono">El campo es obligatorio.</small>
+            </div>
+            <div class="field">
+                <label for="status">Status</label>
+                <p-inputSwitch [(ngModel)]="user.isActive" />
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple [label]="config.labels.buttons.cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple [label]="config.labels.buttons.save" icon="pi pi-check" class="p-button-text" (click)="saveUser()"></button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteUserDialog" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span *ngIf="user">{{config.labels.messages.delete}}</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteUserDialog = false"></button>
+            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="confirmDelete()"></button>
+        </ng-template>
+    </p-dialog>
+
+</div>

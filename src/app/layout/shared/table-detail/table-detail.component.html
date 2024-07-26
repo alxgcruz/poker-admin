@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="flex align-items-center justify-content-between mb-4">
+      <h5 class="mb-0">{{table.mesa}}</h5>
+      <div>
+          <button pButton type="button" icon="pi pi-ellipsis-v"
+              class="p-button-rounded p-button-text p-button-plain"
+              (click)="tableMenu.toggle($event)"></button>
+          <p-menu #tableMenu [popup]="true" [model]="tableItems"></p-menu>
+      </div>
+  </div>
+  <div class="grid">
+      <div class="col-6">
+          <div class="field">
+              <label for="tiempo">Tiempo</label>
+              <h5 class="m-0 text-success">01:10:30</h5>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="juego">Juego</label>
+              <h5 class="m-0">Blind</h5>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="acumulado">Acumulado</label>
+              <h5 class="m-0 text-primary">{{20000|currency}}</h5>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="max">Máx. Jugadores</label>
+              <h5 class="m-0">8</h5>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="hora">Hora Inicio</label>
+              <h5 class="m-0">08:30 p.m.</h5>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="entrada">Entrada</label>
+              <h5 class="m-0">{{2000|currency}}</h5>
+          </div>
+      </div>
+      <div class="col-12">
+          <div class="field">
+              <label for="dealer">Dealer</label>
+              <h5 class="m-0">Dealer 1</h5>
+          </div>
+      </div>
+      <div class="col-12">
+          <div class="flex justify-content-between align-items-center">
+              <h5 class="m-0">Jugadores</h5>
+              <p-button icon="pi pi-user-plus" pTooltip="Agregar jugador" tooltipPosition="bottom"
+                          [rounded]="true" [text]="true" (click)="openAddPlayer()"/>
+          </div>
+      </div>
+  </div>
+  <p-table [value]="playersList" styleClass="p-datatable-sm" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+          <tr>
+              <th pSortableColumn="nombre">Jugador <p-sortIcon field="nombre"></p-sortIcon></th>
+              <th pSortableColumn="acumulado">Acumulado <p-sortIcon field="acumulado"></p-sortIcon></th>
+              <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-player>
+          <tr>
+              <td style="width: 40%;">{{player.nombre}}</td>
+              <td style="width: 30%;" class="text-right">{{player.entrada | currency}}</td>
+              <td style="width: 30%;" class="text-center">
+                  <!-- <p-button icon="pi pi-trash" pTooltip="Agregar jugador" tooltipPosition="bottom"
+                              [text]="true" severity="danger"/> -->
+                  <p-button icon="pi pi-money-bill" pTooltip="Comprar" tooltipPosition="bottom"
+                              [text]="true" severity="warning"/>
+                  <p-button icon="pi pi-arrow-right-arrow-left" pTooltip="Cambiar de mesa" tooltipPosition="bottom"
+                              [text]="true" severity="success"/>
+                  <p-button icon="pi pi-trash" pTooltip="Sacar de mesa" tooltipPosition="bottom"
+                              (click)="confirmDelete($event)" [text]="true" severity="danger"/>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>

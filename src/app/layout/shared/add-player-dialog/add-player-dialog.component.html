@@ -1,0 +1,22 @@
+@if (showTable) {
+  <div class="grid">
+      <div class="col-6">
+          <div class="field">
+              <label for="mesa">Mesa</label>
+              <h4 class="mt-0">{{table.mesa}}</h4>
+          </div>
+      </div>
+      <div class="col-6">
+          <div class="field">
+              <label for="entrada">Entrada</label>
+              <h4 class="mt-0">{{table.entrada | currency}}</h4>
+          </div>
+      </div>
+  </div>
+}
+<app-scan-player [player]="player"/>
+<div class="field">
+  <label for="entrance">Entrada</label>
+  <input type="text" pInputText required>
+  <small>Min: {{table.entrada | currency}}</small>
+</div>

@@ -1,0 +1,38 @@
+<div class="grid">
+  <div class="col-4 flex align-items-center">
+    @if (player.image) {
+      <img [src]="'assets/demo/images/avatar/' + player.image" [alt]="player.image"
+      class="shadow-2 rounded-circle">
+    } @else {
+      <img src="assets/demo/images/avatar/profile.jpg" alt="avatar" class="shadow-2 rounded-circle">
+    }
+  </div>
+  <div class="col-8">
+      <div class="field">
+          <label for="code">Código</label>
+          <p-inputGroup>
+              <input type="text" placeholder="Ingrese o escanee el código" pInputText id="code" [(ngModel)]="player.codigo" required autofocus/>
+              <button type="button" pButton pRipple icon="pi pi-camera" class="p-button-warning" (click)="openScan()"></button>
+          </p-inputGroup>
+      </div>
+      
+      <div class="field w-full">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText id="name" [(ngModel)]="player.nombre" disabled autofocus
+              [ngClass]="{'ng-invalid ng-dirty' : !player.nombre}" />
+              @if (!player.nombre) {
+                <small class="ng-dirty ng-invalid">El campo es obligatorio.</small>
+              }
+      </div>
+  </div>
+</div>
+
+<p-dialog header="Escanear QR" [modal]="true" [(visible)]="scanDialog" [style]="{ width: '400px' }" (onHide)="stopVideo()">
+  <div class="video-row w-full">
+    <video class="video" id="video" #video autoplay playsinline></video>
+  </div>
+  <div style="display:none">
+    <canvas class="video" id="canvas" #canvas></canvas>
+  </div>
+  <ng-template pTemplate="footer"></ng-template>
+</p-dialog>

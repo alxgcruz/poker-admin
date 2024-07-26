@@ -1,0 +1,29 @@
+{
+	"data": {
+		"casinos": [
+			{
+				"id": "1",
+				"casino": "Casino Querétaro",
+				"totalEntradas": 50000,
+				"totalSalidas": 10000,
+				"porcentaje": 50
+			},
+			{
+				"id": "2",
+				"casino": "Casino Puebla",
+				"totalEntradas": 30000,
+				"totalSalidas": 10000,
+				"porcentaje": 30
+			},
+			{
+				"id": "3",
+				"casino": "Casino Veracruz",
+				"totalEntradas": 20000,
+				"totalSalidas": 10000,
+				"porcentaje": 20
+			}
+		],
+		"totalVentas": 100000
+	}
+	
+}
